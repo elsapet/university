@@ -1,0 +1,22 @@
+<h3>Course List</h3>
+
+<div id="items">
+  <% @courses.each do |course| %>
+    <div class="item">
+      <h3><%= course.name %></h3>
+      <h4>Pre-requisites</h4>
+      <ul>
+        <% course.prerequisites.each do |p| %>
+          <li><%= p.name %></li>
+        <% end %>
+      </ul>
+
+      <%= form_tag(controller:'prerequisites', action:'create') do %>
+        <%= hidden_field_tag :course_id, course.id %>
+        <%= select_tag "prerequisite_id", options_from_collection_for_select(@courses, "id", "name") %>
+        <%= submit_tag 'Add Prerequisite' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
